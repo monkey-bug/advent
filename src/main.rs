@@ -1,7 +1,7 @@
-use std::time::{Instant, Duration};
+use std::{env, time::Instant};
 
 use ansi_term::Color;
-use term_table::{row, row::Row, rows, table_cell::*, Table, TableStyle};
+use term_table::{row, rows, row::*, table_cell::*, Table, TableStyle};
 
 mod util;
 mod year15;
@@ -22,7 +22,6 @@ fn run_year(year: &str, funcs: &[[fn() -> String; 2]], color: Color) {
         let now = Instant::now();
         let parts = [day[0](), day[1]()];
         let elapsed = now.elapsed().as_micros();
-        let time = format!("{}ms {}μs", elapsed / 1000, elapsed % 1000);
         let time = format!("{}ms", elapsed as f64 / 1000.0);
 
         let row = row!(format!("Day {}", i + 1), &parts[0], &parts[1], time);
@@ -33,6 +32,11 @@ fn run_year(year: &str, funcs: &[[fn() -> String; 2]], color: Color) {
 }
 
 fn main() {
+    let years = [
+        ("2015", year15::FUNCS),
+        ("2025", year25::FUNCS),
+    ];
+
     let mut colors = [
         Color::Blue,
         Color::Purple,
@@ -40,6 +44,14 @@ fn main() {
         Color::Green,
     ].iter().cycle();
 
-    run_year("2015", year15::FUNCS, *colors.next().unwrap());
-    run_year("2025", year25::FUNCS, *colors.next().unwrap());
+    let args: Vec<_> = env::args().skip(1).collect();
+    if args.len() != 0 {
+        let year = &args[0];
+        let funcs = years.iter().find(|x| x.0 == year).unwrap().1;
+        run_year(year, funcs, *colors.next().unwrap());
+    } else {
+        for (year, funcs) in years {
+            run_year(&year, funcs, *colors.next().unwrap());
+        }
+    }
 }

@@ -3,6 +3,9 @@ name = "advent"
 version = "0.1.0"
 edition = "2024"
 
+[profile.dev]
+opt-level = 2
+
 [dependencies]
 ansi_term = "0.12.1"
 term-table = "1.4.0"
