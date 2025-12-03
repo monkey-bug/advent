@@ -15,7 +15,7 @@ fn run_year(year: &str, funcs: &[[fn() -> String; 2]], color: Color) {
             Color::Yellow.paint("★★"),
             "⌚",
         )])
-        .style(TableStyle::rounded())
+        .style(TableStyle::thin())
         .build();
 
     for (i, day) in funcs.iter().enumerate() {
