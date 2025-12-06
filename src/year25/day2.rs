@@ -26,7 +26,7 @@ pub fn part1() -> String {
         false
     }
 
-    for range in input.split(",") {
+    for range in input.trim().split(",") {
         let range = range.split("-").map(|x| x.parse().unwrap()).collect::<Vec<u64>>();
         let [start, end] = [range[0], range[1]];
 
@@ -70,7 +70,7 @@ pub fn part2() -> String {
         false
     }
 
-    for range in input.split(",") {
+    for range in input.trim().split(",") {
         let range = range.split("-").map(|x| x.parse().unwrap()).collect::<Vec<u64>>();
         let [start, end] = [range[0], range[1]];
         for n in start..=end {

@@ -37,9 +37,9 @@ struct Range {
 }
 
 impl Range {
-    fn contains(&self, i: usize) -> bool {
-        i >= self.start && i <= self.end
-    }
+    // fn contains(&self, i: usize) -> bool {
+    //     i >= self.start && i <= self.end
+    // }
 }
 
 impl PartialOrd for Range {
